@@ -3,13 +3,14 @@ import requests
 import string
 import os
 
+# path where to store data
 PATH = 'data/psyreg/'
 
 # make sure data path exits
 if not os.path.exists(PATH):
    os.makedirs(PATH)
 
-# set timeout
+# set timeout in seconds
 TIMEOUT = 1
 
 # following constants obtained via chrome plugin
@@ -19,7 +20,7 @@ HEADERS = {"Sec-GPC": "1", "X-Requested-With": "XMLHttpRequest", "X-Time-Zone-Ia
 COOKIES = {"cookiesession1": "678A3EAAFAAB3802FE6B02809165DA7D", "_pk_id.198.50b9": "91606401f87aba27.1679493328.",
            "_pk_ses.198.50b9": "1", "_pk_id.29.ad74": "d58fcd628ef6ec6e.1679988073.", "_pk_ses.29.ad74": "1"}
 
-# manually copied
+# manually copied from html-code (browser inspector)
 GENDER_IDS = [12000, 12001]
 
 # get all letters
