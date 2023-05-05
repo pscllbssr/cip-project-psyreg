@@ -1,35 +1,40 @@
 import json
+import os
+
 from pandas import json_normalize
 import glob
 from tqdm import tqdm
 import pandas as pd
 from dateutil.relativedelta import relativedelta
 
+# to know what we are looking for
+# (already answers questions)
+os.system("grep -rnwl data/psyreg_details/ -e 'licence withdrawn'")
 
-#
+
 # 2.)   CLEAN DATA
-#
-# all_results = []
-#
-# # merge single requests big json
-# for f in tqdm(glob.glob("data/psyreg_details/*.txt")):
-#     with open(f, "rb") as infile:
-#         try:
-#             data = json.load(infile)
-#             all_results.append(data)
-#
-#         except Exception as e:
-#             print('\nError in {}'.format(infile.name))
-#             print(e)
-#
-# print("read {} profiles".format(len(all_results)))
-#
-# # store as file to meet naming requirements
-# with open("data/psyreg_details_stage1.json", "w") as outfile:
-#     json.dump(all_results, outfile)
-#
-# # delete reference (gc should notice and free memory)
-# del all_results
+
+all_results = []
+
+# merge single requests big json
+for f in tqdm(glob.glob("data/psyreg_details/*.txt")):
+    with open(f, "rb") as infile:
+        try:
+            data = json.load(infile)
+            all_results.append(data)
+
+        except Exception as e:
+            print('\nError in {}'.format(infile.name))
+            print(e)
+
+print("read {} profiles".format(len(all_results)))
+
+# store as file to meet naming requirements
+with open("data/psyreg_details_stage1.json", "w") as outfile:
+    json.dump(all_results, outfile)
+
+# delete reference (gc should notice and free memory)
+del all_results
 
 # read in formerly stored staging data
 with open("data/psyreg_details_stage1.json", "r") as stage_file:
