@@ -45,6 +45,8 @@ def extract_permission_data(x):
 
     # as json-data is dictionary, we can access with get()
     id = x.get('id')
+    name = x.get('name')
+    firstName = x.get('firstName')
     titles = x.get('cetTitles',[])
 
     # list to store permission-data
@@ -85,6 +87,8 @@ def extract_permission_data(x):
     # return flattened record for every therapist
     return {
         'therapist_id': id,
+        'name': name,
+        'firstName': firstName,
         'permissions': perms
     }
 
@@ -92,7 +96,7 @@ def extract_permission_data(x):
 flat_stage_data = [extract_permission_data(x) for x in stage_data]
 
 # make dataframe
-df_permissions = json_normalize(flat_stage_data, record_path='permissions', meta='therapist_id')
+df_permissions = json_normalize(flat_stage_data, record_path='permissions', meta=['therapist_id', 'name', 'firstName'])
 
 # explode on addresses to later join with address book
 df_permissions_addresses = df_permissions.join(df_permissions.addresses.explode().apply(pd.Series)).reset_index(drop=True).drop(['addresses', 0], axis=1)

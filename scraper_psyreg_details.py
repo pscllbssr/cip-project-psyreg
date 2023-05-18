@@ -63,6 +63,7 @@ while True:
                     # write every request to file for later processing
                     with open(os.path.join(PATH, "{}.txt".format(id)), "w") as f:
                         f.write(response.text)
+                        print('save {}.txt'.format(id))
                 except Exception as e:
                     print(e)
                     break
